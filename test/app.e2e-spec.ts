@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { AuthDto } from 'src/auth/dto';
+import { EditUserDto } from 'src/user/dto';
 
 describe('App e2e', () => {
     let app: INestApplication;
@@ -127,7 +128,23 @@ describe('App e2e', () => {
                     .expectStatus(200);
             });
         });
-        describe('Update current user', () => {});
+        describe('Update current user', () => {
+            it('should edit the user', () => {
+                const dto: EditUserDto = {
+                    firstName: 'test',
+                    email: 'test1@test.test',
+                };
+                return pactum
+                    .spec()
+                    .patch('/users/me')
+                    .withHeaders({
+                        Authorization:
+                            'Bearer $S{userAt}',
+                    })
+                    .withBody(dto)
+                    .expectStatus(200);
+            });
+        });
     });
     describe('Bookmarks', () => {
         describe('Create bookmark', () => {});
