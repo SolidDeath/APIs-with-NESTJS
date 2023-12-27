@@ -5,11 +5,12 @@ import {
     Patch,
     UseGuards,
 } from '@nestjs/common';
-import { GetUser } from '../auth/decorator';
-import { JwtGuard } from '../auth/guard';
 import { User } from '@prisma/client';
+
 import { EditUserDto } from './dto';
 import { UserService } from './user.service';
+import { JwtGuard } from '@/auth/guard';
+import { GetUser } from '@/auth/decorator';
 
 @UseGuards(JwtGuard)
 @Controller('users')
