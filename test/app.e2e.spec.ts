@@ -132,18 +132,24 @@ describe('App e2e', () => {
         describe('Update current user', () => {
             it('should edit the user', () => {
                 const dto: EditUserDto = {
-                    firstName: 'test',
+                    firstName: 'testchan',
                     email: 'test1@test.test',
                 };
                 return pactum
                     .spec()
-                    .patch('/users/me')
+                    .patch('/users')
                     .withHeaders({
                         Authorization:
                             'Bearer $S{userAt}',
                     })
                     .withBody(dto)
-                    .expectStatus(200);
+                    .expectStatus(200)
+                    .expectBodyContains(
+                        dto.firstName,
+                    )
+                    .expectBodyContains(
+                        dto.email,
+                    );
             });
         });
     });
